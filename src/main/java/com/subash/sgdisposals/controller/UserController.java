@@ -34,4 +34,11 @@ public class UserController {
         List<AllUserRequestDto> response = requestService.getAllRequestsForUser(id);
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
+
+    @PutMapping("cancel")
+    public ResponseEntity<?> cancelRequest(@RequestParam Long id,@RequestParam Long user_id){
+
+        Map<String,Object> response = userService.cancelRequest(user_id,id);
+        return ResponseEntity.status(HttpStatus.OK).body(response);
+    }
 }

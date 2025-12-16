@@ -35,7 +35,6 @@ public class RequestService implements IRequestService {
                 allUserRequestDto.setUser_id(item.getUser().getId());
                 allUserRequestDto.setId(item.getId());
                 allUserRequestDto.setAddress(item.getAddress());
-                allUserRequestDto.setStatus(item.getStatus());
                 return allUserRequestDto;
             }).toList();
         }
