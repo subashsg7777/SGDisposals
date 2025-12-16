@@ -13,4 +13,8 @@ public interface CollectionRepo extends JpaRepository<CollectionRequest,Long> {
     List<CollectionRequest> findAllByUser(User user);
 
     List<CollectionRequest> findAllByStatus(String requested);
+
+    List<CollectionRequest> findByUserAndDeletedFalse(User user);
+
+    List<CollectionRequest> findByStatusAndDeletedFalse(String requested);
 }

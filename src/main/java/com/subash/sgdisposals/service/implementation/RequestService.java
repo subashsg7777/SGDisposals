@@ -26,30 +26,35 @@ public class RequestService implements IRequestService {
     public List<AllUserRequestDto> getAllRequestsForUser(Long id) {
 
         User user = userRepo.findById(id).orElseThrow();
-        List<CollectionRequest> result = collectionRepo.findAllByUser(user);
-        Map<Long, CollectionRequest> map = new HashMap<>();
-        return result.stream().map(item -> {
-            AllUserRequestDto allUserRequestDto = new AllUserRequestDto();
-             allUserRequestDto.setName(item.getUser().getName());
-             allUserRequestDto.setUser_id(item.getUser().getId());
-             allUserRequestDto.setId(item.getId());
-             allUserRequestDto.setAddress(item.getAddress());
-             allUserRequestDto.setStatus(item.getStatus());
-             return allUserRequestDto;
-        }).toList();
+        if(user.getRole() == "USER"){
+            List<CollectionRequest> result = collectionRepo.findByUserAndDeletedFalse(user);
+            Map<Long, CollectionRequest> map = new HashMap<>();
+            return result.stream().map(item -> {
+                AllUserRequestDto allUserRequestDto = new AllUserRequestDto();
+                allUserRequestDto.setName(item.getUser().getName());
+                allUserRequestDto.setUser_id(item.getUser().getId());
+                allUserRequestDto.setId(item.getId());
+                allUserRequestDto.setAddress(item.getAddress());
+                allUserRequestDto.setStatus(item.getStatus());
+                return allUserRequestDto;
+            }).toList();
+        }
+
+        else{
+            return Collections.emptyList();
+        }
     }
 
     @Override
     public List<AllUserRequestDto> getAllRequestsForCollector() {
 
-        List<CollectionRequest> result = collectionRepo.findAllByStatus("REQUESTED");
+        List<CollectionRequest> result = collectionRepo.findByStatusAndDeletedFalse("REQUESTED");
         return result.stream().map(item -> {
             AllUserRequestDto allUserRequestDto = new AllUserRequestDto();
             allUserRequestDto.setName(item.getUser().getName());
             allUserRequestDto.setUser_id(item.getUser().getId());
             allUserRequestDto.setId(item.getId());
             allUserRequestDto.setAddress(item.getAddress());
-            allUserRequestDto.setStatus(item.getStatus());
             return allUserRequestDto;
         }).toList();
     }

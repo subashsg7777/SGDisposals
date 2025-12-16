@@ -11,5 +11,4 @@ public class AllUserRequestDto {
     private Long user_id;
     private Long id;
     private String address;
-    private String status;
 }

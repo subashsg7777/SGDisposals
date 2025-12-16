@@ -12,24 +12,18 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("api/collections/")
+@RequestMapping("api/v1/collectors")
 @RequiredArgsConstructor
 public class CollectionController {
 
     private final IRequestService requestService;
 
-    @GetMapping("get_all_User_Collections")
-    public ResponseEntity<List<AllUserRequestDto>> getAllRequestOfaUser(@RequestParam Long id){
-        List<AllUserRequestDto> response = requestService.getAllRequestsForUser(id);
-        return ResponseEntity.status(HttpStatus.OK).body(response);
-    }
-
-    @GetMapping("get_all_Collector")
+    @GetMapping("requests")
     public ResponseEntity<?> getAllRequestOfaCollector(){
 
         List<AllUserRequestDto> response = requestService.getAllRequestsForCollector();
         return ResponseEntity.status(HttpStatus.OK).body(response);
 
-        
+
     }
 }
