@@ -29,5 +29,7 @@ public class CollectionController {
 
         List<AllUserRequestDto> response = requestService.getAllRequestsForCollector();
         return ResponseEntity.status(HttpStatus.OK).body(response);
+
+        
     }
 }
