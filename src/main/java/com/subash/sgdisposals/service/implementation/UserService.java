@@ -49,15 +49,16 @@ public class UserService implements IUserService {
 
         CollectionRequest request = collectionRepo.findByUserAndId(user, id);
 
-        if (request.getDeleted()){
-            throw new IllegalStateException("Request has been deleted!");
-        }
         if (request == null) {
             throw new IllegalStateException("Request not found");
         }
 
+        if (request.getDeleted()){
+            throw new IllegalStateException("Request has been deleted!");
+        }
+
         if (user.getRole() != RoleEnum.USER) {
-            throw new IllegalStateException("Only USER can cancel requests");
+            throw   new IllegalStateException("Only USER can cancel requests");
         }
 
         if (request.getStatus() == StatusEnum.CANCELLED) {
