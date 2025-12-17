@@ -1,5 +1,7 @@
 package com.subash.sgdisposals.service.implementation;
 
+import com.subash.sgdisposals.RoleEnum;
+import com.subash.sgdisposals.StatusEnum;
 import com.subash.sgdisposals.dto.UserRegisterReqDto;
 import com.subash.sgdisposals.entity.CollectionRequest;
 import com.subash.sgdisposals.entity.User;
@@ -25,13 +27,6 @@ public class UserService implements IUserService {
     private final UserRepo userRepo;
     private final CollectionRepo collectionRepo;
 
-    public enum StatusEnum {
-        REQUESTED,
-        COLLECTED,
-        EVALUATED,
-        CANCELLED
-    }
-
     @Override
     public Map<String, Object> addUser(UserRegisterReqDto userRegisterReqDto) {
         User user = new User();
@@ -47,25 +42,40 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public Map<String, Object> cancelRequest(Long id, Long user_id) {
-        Map<String, Object> response = new HashMap<>();
-        User user = userRepo.findById(user_id).orElse(null);
+    public Map<String, Object> cancelRequest(Long id, Long userId) {
+
+        User user = userRepo.findById(userId)
+                .orElseThrow(() -> new IllegalStateException("User not found"));
+
         CollectionRequest request = collectionRepo.findByUserAndId(user, id);
 
-        if (request.getStatus().equals("CANCELLED")) {
-            log.error("Request has been already Cancelled!");
-            response.put("message", "Request has already been cancelled!");
+        if (request.getDeleted()){
+            throw new IllegalStateException("Request has been deleted!");
+        }
+        if (request == null) {
+            throw new IllegalStateException("Request not found");
         }
 
-        if (user.getRole().equals("USER") && request.getStatus().equals("REQUESTED")) {
-            request.setStatus("CANCELLED");
-            collectionRepo.save(request);
-            response.put("message", "UserRequest has been successfully cancelled!");
-            response.put("user", user.getName());
-            response.put("request_id", request.getId());
+        if (user.getRole() != RoleEnum.USER) {
+            throw new IllegalStateException("Only USER can cancel requests");
         }
 
+        if (request.getStatus() == StatusEnum.CANCELLED) {
+            throw new IllegalStateException("Request already cancelled");
+        }
+
+        if (request.getStatus() != StatusEnum.REQUESTED) {
+            throw new IllegalStateException("Only REQUESTED requests can be cancelled");
+        }
+
+        request.setStatus(StatusEnum.CANCELLED);
+        collectionRepo.save(request);
+
+        Map<String, Object> response = new HashMap<>();
+        response.put("message", "User request successfully cancelled");
+        response.put("request_id", request.getId());
         return response;
     }
+
 
 }

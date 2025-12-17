@@ -1,5 +1,7 @@
 package com.subash.sgdisposals.service.implementation;
 
+import com.subash.sgdisposals.RoleEnum;
+import com.subash.sgdisposals.StatusEnum;
 import com.subash.sgdisposals.entity.CollectionRequest;
 import com.subash.sgdisposals.entity.User;
 import com.subash.sgdisposals.repositories.CollectionRepo;
@@ -23,11 +25,16 @@ public class CollectorService implements ICollectorService {
 
         Map<String,Object> map = new HashMap<>();
 
-        User user = userRepo.findById(id).orElse(null);
-        if (user.getRole().equals("COLLECTOR")) {
+        User user = userRepo.findById(user_id).orElse(null);
+        if (user.getRole() == RoleEnum.COLLECTOR && !user.getDeleted()) {
             CollectionRequest request = collectionRepo.findById(id).orElse(null);
-            if (request != null && request.getStatus().equals("REQUESTED")) {
-                request.setStatus("COLLECTED");
+
+            if (request.getStatus() == StatusEnum.COLLECTED) {
+                throw new IllegalStateException("User already collected");
+            }
+
+            if (request != null && request.getStatus() == StatusEnum.REQUESTED) {
+                request.setStatus(StatusEnum.COLLECTED);
                 collectionRepo.save(request);
                 map.put("Request_id", request.getId());
                 map.put("message","Now Changed to Collected Status");

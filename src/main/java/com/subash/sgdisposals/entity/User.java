@@ -1,5 +1,6 @@
 package com.subash.sgdisposals.entity;
 
+import com.subash.sgdisposals.RoleEnum;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -14,6 +15,11 @@ import java.time.Instant;
 @Entity
 @Table(name = "users")
 public class User {
+
+    public enum Roleenum{
+        USER,
+        COLLECTOR
+    }
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
@@ -36,8 +42,9 @@ public class User {
 
     @NotNull
     @Lob
+    @Enumerated(EnumType.STRING)
     @Column(name = "role", nullable = false)
-    private String role;
+    private RoleEnum role;
 
     @NotNull
     @ColumnDefault("0")

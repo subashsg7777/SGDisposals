@@ -38,7 +38,7 @@ public class UserController {
     @PutMapping("cancel")
     public ResponseEntity<?> cancelRequest(@RequestParam Long id,@RequestParam Long user_id){
 
-        Map<String,Object> response = userService.cancelRequest(user_id,id);
+        Map<String,Object> response = userService.cancelRequest(id,user_id);
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 }

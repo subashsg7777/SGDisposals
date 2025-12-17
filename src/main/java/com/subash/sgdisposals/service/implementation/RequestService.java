@@ -1,5 +1,6 @@
 package com.subash.sgdisposals.service.implementation;
 
+import com.subash.sgdisposals.RoleEnum;
 import com.subash.sgdisposals.dto.AllUserRequestDto;
 import com.subash.sgdisposals.entity.CollectionRequest;
 import com.subash.sgdisposals.entity.User;
@@ -26,7 +27,7 @@ public class RequestService implements IRequestService {
     public List<AllUserRequestDto> getAllRequestsForUser(Long id) {
 
         User user = userRepo.findById(id).orElseThrow();
-        if(user.getRole() == "USER"){
+        if(user.getRole() == RoleEnum.USER){
             List<CollectionRequest> result = collectionRepo.findByUserAndDeletedFalse(user);
             Map<Long, CollectionRequest> map = new HashMap<>();
             return result.stream().map(item -> {
