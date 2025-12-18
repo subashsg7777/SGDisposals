@@ -1,5 +1,6 @@
         package com.subash.sgdisposals.controller;
 
+        import com.subash.sgdisposals.dto.CollectedResDto;
         import com.subash.sgdisposals.service.ICollectorService;
         import com.subash.sgdisposals.service.IUserService;
         import lombok.RequiredArgsConstructor;
@@ -20,9 +21,9 @@
             private final ICollectorService collectorService;
 
             @PutMapping("collected")
-            public ResponseEntity<Map<String,Object>> markAsCollected(@RequestParam Long id, @RequestParam Long user_id){
+            public ResponseEntity<CollectedResDto> markAsCollected(@RequestParam Long id, @RequestParam Long user_id){
 
-                Map<String,Object> map = collectorService.markAsCollected(id, user_id);
+                CollectedResDto map = collectorService.markAsCollected(id, user_id);
                 return ResponseEntity.status(HttpStatus.OK).body(map);
             }
         }

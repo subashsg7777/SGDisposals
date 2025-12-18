@@ -1,11 +1,12 @@
 package com.subash.sgdisposals.service;
 
-import com.subash.sgdisposals.dto.UserRegisterReqDto;
+import com.subash.sgdisposals.dto.*;
 
 import java.util.Map;
 
 public interface IUserService {
 
-    public Map<String,Object> addUser(UserRegisterReqDto userRegisterReqDto);
-    Map<String,Object> cancelRequest(Long id, Long user_id);
+    AddUserResDto addUser(UserRegisterReqDto userRegisterReqDto);
+    CancelReqResDto cancelRequest(Long id, Long user_id);
+    AddNewReqResDto addNewRequest(AddNewRequestDto addNewRequestDto);
 }

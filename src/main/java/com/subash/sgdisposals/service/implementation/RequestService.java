@@ -1,9 +1,11 @@
 package com.subash.sgdisposals.service.implementation;
 
 import com.subash.sgdisposals.RoleEnum;
+import com.subash.sgdisposals.StatusEnum;
 import com.subash.sgdisposals.dto.AllUserRequestDto;
 import com.subash.sgdisposals.entity.CollectionRequest;
 import com.subash.sgdisposals.entity.User;
+import com.subash.sgdisposals.exception.ResourceNotFoundException;
 import com.subash.sgdisposals.repositories.CollectionRepo;
 import com.subash.sgdisposals.repositories.UserRepo;
 import com.subash.sgdisposals.service.IRequestService;
@@ -11,10 +13,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
@@ -28,7 +27,7 @@ public class RequestService implements IRequestService {
 
         User user = userRepo.findById(id).orElseThrow();
         if(user.getRole() == RoleEnum.USER){
-            List<CollectionRequest> result = collectionRepo.findByUserAndDeletedFalse(user);
+            List<CollectionRequest> result = collectionRepo.findByUserAndDeletedFalse(user).orElseThrow();
             Map<Long, CollectionRequest> map = new HashMap<>();
             return result.stream().map(item -> {
                 AllUserRequestDto allUserRequestDto = new AllUserRequestDto();
@@ -41,14 +40,14 @@ public class RequestService implements IRequestService {
         }
 
         else{
-            return Collections.emptyList();
+            throw new ResourceNotFoundException("No Request for this User");
         }
     }
 
     @Override
     public List<AllUserRequestDto> getAllRequestsForCollector() {
 
-        List<CollectionRequest> result = collectionRepo.findByStatusAndDeletedFalse("REQUESTED");
+        List<CollectionRequest> result = collectionRepo.findByStatusAndDeletedFalse(StatusEnum.REQUESTED).orElseThrow();
         return result.stream().map(item -> {
             AllUserRequestDto allUserRequestDto = new AllUserRequestDto();
             allUserRequestDto.setName(item.getUser().getName());

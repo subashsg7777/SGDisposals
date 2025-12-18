@@ -1,7 +1,6 @@
 package com.subash.sgdisposals.controller;
 
-import com.subash.sgdisposals.dto.AllUserRequestDto;
-import com.subash.sgdisposals.dto.UserRegisterReqDto;
+import com.subash.sgdisposals.dto.*;
 import com.subash.sgdisposals.service.IRequestService;
 import com.subash.sgdisposals.service.IUserService;
 import jakarta.validation.Valid;
@@ -23,9 +22,9 @@ public class UserController {
     private final IRequestService requestService;
 
     @PostMapping("add-user")
-    private ResponseEntity<Map<String,Object>> addUser(@Valid  @RequestBody UserRegisterReqDto userRegisterReqDto) {
+    private ResponseEntity<AddUserResDto> addUser(@Valid  @RequestBody UserRegisterReqDto userRegisterReqDto) {
 
-        Map<String, Object> response = userService.addUser(userRegisterReqDto);
+        AddUserResDto response = userService.addUser(userRegisterReqDto);
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
@@ -36,9 +35,16 @@ public class UserController {
     }
 
     @PutMapping("cancel")
-    public ResponseEntity<?> cancelRequest(@RequestParam Long id,@RequestParam Long user_id){
+    public ResponseEntity<CancelReqResDto> cancelRequest(@RequestParam Long id,@RequestParam Long user_id){
 
-        Map<String,Object> response = userService.cancelRequest(id,user_id);
+        CancelReqResDto response = userService.cancelRequest(id,user_id);
+        return ResponseEntity.status(HttpStatus.OK).body(response);
+    }
+
+    @PostMapping("add-request")
+    public ResponseEntity<AddNewReqResDto> addNewRequest(@Valid @RequestBody AddNewRequestDto  addNewRequestDto){
+
+        AddNewReqResDto  response = userService.addNewRequest(addNewRequestDto);
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 }

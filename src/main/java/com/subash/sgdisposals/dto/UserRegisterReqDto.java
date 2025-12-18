@@ -1,5 +1,6 @@
 package com.subash.sgdisposals.dto;
 
+import com.subash.sgdisposals.RoleEnum;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -22,5 +23,5 @@ public class UserRegisterReqDto {
     private String password;
 
     @NotNull
-    private String role;
+    private RoleEnum role;
 }

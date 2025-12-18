@@ -1,7 +1,6 @@
 package com.subash.sgdisposals.entity;
 
 import com.subash.sgdisposals.StatusEnum;
-import com.subash.sgdisposals.service.implementation.UserService;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
