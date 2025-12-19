@@ -9,4 +9,5 @@ public class CollectedResDto {
     private String message;
     private Long request_id;
     private String collector;
+    private Long points;
 }

@@ -10,6 +10,7 @@ import com.subash.sgdisposals.exception.ResourceNotFoundException;
 import com.subash.sgdisposals.repositories.CollectionRepo;
 import com.subash.sgdisposals.repositories.UserRepo;
 import com.subash.sgdisposals.service.ICollectorService;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -23,6 +24,8 @@ public class CollectorService implements ICollectorService {
 
     private final UserRepo userRepo;
     private final CollectionRepo  collectionRepo;
+
+    @Transactional
     @Override
     public CollectedResDto markAsCollected(Long id, Long user_id) {
 

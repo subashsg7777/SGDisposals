@@ -32,6 +32,7 @@ public class UserService implements IUserService {
     private final UserRepo userRepo;
     private final CollectionRepo collectionRepo;
 
+    @Transactional
     @Override
     public AddUserResDto addUser(UserRegisterReqDto userRegisterReqDto) {
         AddUserResDto  addUserResDto = new AddUserResDto();
@@ -58,6 +59,7 @@ public class UserService implements IUserService {
         }
     }
 
+    @Transactional
     @Override
     public CancelReqResDto cancelRequest(Long id, Long userId) {
 
