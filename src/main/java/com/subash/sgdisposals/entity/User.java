@@ -41,6 +41,10 @@ public class User {
     private String password;
 
     @NotNull
+    @Column(name = "Transactional_password",nullable = false)
+    private String Transactional_password;
+
+    @NotNull
     @Lob
     @Enumerated(EnumType.STRING)
     @Column(name = "role", nullable = false)

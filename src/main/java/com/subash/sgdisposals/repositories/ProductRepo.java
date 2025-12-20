@@ -1,17 +1,18 @@
 package com.subash.sgdisposals.repositories;
 
-import com.subash.sgdisposals.entity.User;
+import com.subash.sgdisposals.entity.Product;
 import jakarta.persistence.LockModeType;
+import org.hibernate.annotations.Parent;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Lock;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.stereotype.Repository;
+import org.springframework.data.repository.query.Param;
 
 import java.util.Optional;
-
-@Repository
-public interface UserRepo extends JpaRepository<User, Long>{
+public interface ProductRepo extends JpaRepository<Product, Long> {
 
     @Lock(LockModeType.PESSIMISTIC_WRITE)
-    Optional<User> findById(Long id);
+    @Query("SELECT p FROM Product p WHERE p.id = :id")
+    Optional<Product> findById(@Param("id") Long id);
 }
+

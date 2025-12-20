@@ -3,11 +3,11 @@ package com.subash.sgdisposals.exception;
 import lombok.Data;
 
 @Data
-public class UnauthorizedRequestException extends RuntimeException{
+public class OrderException extends RuntimeException{
 
     private final String message;
 
-    public UnauthorizedRequestException(String message){
+    public OrderException(String message) {
         this.message = message;
     }
 }

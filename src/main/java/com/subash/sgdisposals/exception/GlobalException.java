@@ -51,4 +51,14 @@ public ResponseEntity<ErrorResponseDto> globalException(Exception ex){
     errorResponseDto.setStatus(HttpStatus.UNAUTHORIZED);
     return  ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(errorResponseDto);
 }
+
+@ExceptionHandler(OrderException.class)
+    public ResponseEntity<ErrorResponseDto> orderException(OrderException ex){
+    ErrorResponseDto errorResponseDto = new ErrorResponseDto();
+    errorResponseDto.setTimestamp(LocalDateTime.now());
+    errorResponseDto.setMessage(ex.getMessage());
+    errorResponseDto.setError("Order Exception");
+    errorResponseDto.setStatus(HttpStatus.INTERNAL_SERVER_ERROR);
+    return  ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorResponseDto);
+}
 }
