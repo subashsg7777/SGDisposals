@@ -18,7 +18,9 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -42,7 +44,7 @@ public class ProductService implements IProductService {
 
     @Transactional
     @Override
-    public boolean buyProduct(BuyProductReqDto buyProductReqDto) {
+    public Map buyProduct(BuyProductReqDto buyProductReqDto) {
 
         Product product = productRepo.findById(buyProductReqDto.getProduct_id())
                 .orElseThrow(() -> new ResourceNotFoundException("Product not found"));
@@ -81,7 +83,10 @@ public class ProductService implements IProductService {
             productRepo.save(product);
 
             order.setStatus(OrderStatusEnum.ORDERED);
-            return true;
+            Map map = new HashMap();
+            map.put("result",true);
+            map.put("product",product.getName());
+            return map;
         } catch (Exception e) {
             throw new OrderException("Can't Complete Order Purchase Right Now Try Again Later !...");
         }
