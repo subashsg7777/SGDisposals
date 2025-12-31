@@ -40,7 +40,7 @@ const AddAddressModal = ({ isOpen, onClose }) => {
     console.log("The address is ready to be added:", address);
 
     try {
-      const res = await axios.post("http://localhost:8080/api/v1/user/add-request", {
+      const res = await axios.post(`${import.meta.env.VITE_BASE_URL}/user/add-request`, {
         user: user_id,
         address
       });

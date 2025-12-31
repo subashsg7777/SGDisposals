@@ -4,9 +4,9 @@ import { FaCross, FaFacebook, FaLeaf, FaPlay, FaPlayCircle } from "react-icons/f
 import banner from "../../public/hero_banner.png";
 import AddAddressModal from './AddAddressModal';
 
-const HeroSection = () => {
+const HeroSection = ({showModal,setShowModal}) => {
 
-  const [showModal,setShowModal] = useState(false);
+
 
     async function handleScheduleRequest(){
 

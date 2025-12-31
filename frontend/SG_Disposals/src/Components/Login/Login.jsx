@@ -2,6 +2,7 @@ import React, { useContext, useRef } from 'react';
 import loginbanner from "../../../public/login_banner.png"
 import axios from 'axios';
 import { UserContext } from '../../store/UserStore.jsx';
+import { useNavigate } from 'react-router-dom';
 
 
 const Login = () => {
@@ -9,13 +10,18 @@ const Login = () => {
     let emailRef = useRef(null);
     let passwordRef = useRef(null);
     const {login} = useContext(UserContext);
+    const naviagte = useNavigate();
 
 async function handleLogin() {
   const email = emailRef.current.value;
   const password = passwordRef.current.value;
 
   try {
-    const res = await axios.post(`http://localhost:8080/api/v1/user/login`, { email, password });
+const res = await axios.post(
+  `${import.meta.env.VITE_BASE_URL}/user/login`,
+  { email, password }
+);
+
     const data = res.data;   // ✅ no await needed
 
     console.log("User ID:", data.id);
@@ -28,6 +34,7 @@ async function handleLogin() {
       login({ user_id: data.id });
 
       alert(data.message);
+    naviagte("/")
     }
   } catch (err) {
     console.error("Login failed:", err);

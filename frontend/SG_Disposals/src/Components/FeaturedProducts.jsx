@@ -31,7 +31,7 @@ const FeaturedProducts = () => {
 
   useEffect(() => {
     async function handleProductsFetch() {
-      const res = await axios.get("http://localhost:8080/api/v1/product");
+      const res = await axios.get(`${import.meta.env.VITE_BASE_URL}/product`);
       const data = res.data;
       console.log({ data });
       setProducts(data.products);

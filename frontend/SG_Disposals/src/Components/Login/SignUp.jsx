@@ -17,7 +17,7 @@ const SignUp = () => {
     const name = usernameRef.current.value;
     const Transactional_password = transactionPasswordRef.current.value;
 
-    const res = await axios.post("http://localhost:8080/api/v1/user/add-user",{email,password,name,Transactional_password});
+    const res = await axios.post(`${import.meta.env.VITE_BASE_URL}/user/add-user`,{email,password,name,Transactional_password});
     const data = res.data;
     console.log({res});
 

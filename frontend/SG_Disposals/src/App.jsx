@@ -8,6 +8,8 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import SignUp from './Components/Login/SignUp';
 import CollectionRequestsTable from './Components/Requests/AllRequests';
 import FeaturedProducts from './Components/FeaturedProducts';
+import ContactUs from './Components/ContactUs';
+import AboutUs from './Components/AboutUs';
 
 function App() {
 
@@ -18,6 +20,8 @@ function App() {
           <Route path='/login' element={<Login />} />
           <Route path='/signup' element={<SignUp />} />
           <Route path='/request' element={<CollectionRequestsTable />}/>
+          <Route path='/Contact-us' element={<ContactUs />} />
+          <Route path='/About-Us' element={<AboutUs />} />
         </Routes>
         </div>
   );

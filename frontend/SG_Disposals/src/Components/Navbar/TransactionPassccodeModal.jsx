@@ -21,7 +21,7 @@ const TransactionPasscodeModal = ({ isOpen, onClose }) => {
           console.log("Your Password for this Transaction is : ",Transactional_password);
           
           const quantity = item.quantity;
-          const res = await axios.post("http://localhost:8080/api/v1/product/buy",{user_id,product_id,Transactional_password,quantity});
+          const res = await axios.post(`${import.meta.env.VITE_BASE_URL}/product/buy`,{user_id,product_id,Transactional_password,quantity});
 
           const data = res.data;
           console.log(`Data for ${item.id} is : `,data);
