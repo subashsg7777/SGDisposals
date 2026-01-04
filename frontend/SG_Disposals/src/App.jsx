@@ -7,14 +7,13 @@ import Login from './Components/Login/Login';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import SignUp from './Components/Login/SignUp';
 import CollectionRequestsTable from './Components/Requests/AllRequests';
-import FeaturedProducts from './Components/FeaturedProducts';
 import ContactUs from './Components/ContactUs';
 import AboutUs from './Components/AboutUs';
 
 function App() {
 
   return (
-        <div className='-ml-84 -mt-8 min-h-screen min-w-screen flex flex-col bg-green-400'>
+        <div className='flex flex-col bg-green-400'>
           <Routes>
           <Route path='/' element={<><Home /></>} />
           <Route path='/login' element={<Login />} />

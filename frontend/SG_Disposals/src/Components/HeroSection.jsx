@@ -26,7 +26,7 @@ const HeroSection = ({showModal,setShowModal}) => {
     <div className='py-7 flex gap-80  bg-linear-to-b from-green-100 to-white'>
       
       <div className=' rounded-4xl w-[50%] px-2 flex flex-col py-21 ml-[3.5%]'>
-            <p className='text-green-700 font-semibold flex gap-2 bg-green-2  00 w-fit p-1 px-3  rounded-4xl'> <FaLeaf /> Sustainable Waste Management</p>
+            <p className='text-green-700 font-semibold flex gap-2 bg-green-300 w-fit p-1 px-3  rounded-4xl'> <FaLeaf /> Sustainable Waste Management</p>
             <h1 className='justify-items-start text-black font-bold'><span className='text-green-500 font-bold block'>Smart Garbage</span> <span className='block text-start'>Collection for a</span> <span className='block'>Cleaner Tommorow</span></h1>
             <p className='text-gray-600 line-clamp-4 text-start my-5'>
             <span className='block text-start'>Join thousands of households making a difference. Schedule pickups,</span>

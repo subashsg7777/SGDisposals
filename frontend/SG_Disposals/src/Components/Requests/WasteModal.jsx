@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef, useContext } from "react";
-import axios from "axios";
+import api from '../../api/axios';
 import { FaRecycle, FaLeaf, FaLaptop, FaTimes } from "react-icons/fa";
 import { UserContext } from "../../store/UserStore";
 
@@ -12,7 +12,7 @@ const {user} = useContext(UserContext);
     if (isOpen) {
       const fetchWasteTypes = async () => {
         try {
-          const res = await axios.get("http://localhost:8080/api/v1/collections/waste-lists");
+          const res = await api.get("http://localhost:8080/api/v1/collections/waste-lists");
           setWasteTypes(res.data); // array of {id, points, type}
           // initialize refs
           const refsObj = {};
@@ -43,7 +43,7 @@ const {user} = useContext(UserContext);
     const collection_id = request.id;
     const user_id = request.user_id;
 
-    const res = await axios.put("http://localhost:8080/api/v1/collector/collect",{collection_id,collector_id,user_id,weights});
+    const res = await api.put("http://localhost:8080/api/v1/collector/collect",{collection_id,collector_id,user_id,weights});
 
     if (res.status == 200){
         alert(res.data.message || "Collected");

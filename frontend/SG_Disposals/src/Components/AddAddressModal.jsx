@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useRef } from 'react';
 import { FaMapMarkerAlt, FaBuilding, FaHashtag, FaTimes } from 'react-icons/fa';
 import { UserContext } from '../store/UserStore.jsx';
-import axios from 'axios';
+import api from '../api/axios';
 
 const AddAddressModal = ({ isOpen, onClose }) => {
   const { user } = useContext(UserContext);
@@ -40,7 +40,7 @@ const AddAddressModal = ({ isOpen, onClose }) => {
     console.log("The address is ready to be added:", address);
 
     try {
-      const res = await axios.post(`${import.meta.env.VITE_BASE_URL}/user/add-request`, {
+      const res = await api.post(`${import.meta.env.VITE_BASE_URL}/user/add-request`, {
         user: user_id,
         address
       });

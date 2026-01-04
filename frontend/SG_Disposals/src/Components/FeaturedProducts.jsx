@@ -1,4 +1,4 @@
-import axios from 'axios';
+import api from '../api/axios';
 import React, { useEffect, useState } from 'react';
 import { FaCoins } from 'react-icons/fa';
 
@@ -31,7 +31,7 @@ const FeaturedProducts = () => {
 
   useEffect(() => {
     async function handleProductsFetch() {
-      const res = await axios.get(`${import.meta.env.VITE_BASE_URL}/product`);
+      const res = await api.get(`${import.meta.env.VITE_BASE_URL}/product`);
       const data = res.data;
       console.log({ data });
       setProducts(data.products);

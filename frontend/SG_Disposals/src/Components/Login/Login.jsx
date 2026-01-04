@@ -30,6 +30,8 @@ const res = await axios.post(
       // persist in localStorage
       localStorage.setItem("user_id", data.id);
       localStorage.setItem("role",data.role);
+      localStorage.setItem("token",data.token);
+      
       // update context
       login({ user_id: data.id });
 

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { FaCheckCircle } from "react-icons/fa"; 
-import axios from "axios";
+import api from '../../api/axios';
 import Navbar from "../Navbar";
 import WasteModal from "./WasteModal";
 
@@ -12,7 +12,7 @@ const CollectionRequestsTable = () => {
   useEffect(() => {
     const fetchRequests = async () => {
       try {
-        const res = await axios.get("http://localhost:8080/api/v1/collections/requests"); 
+        const res = await api.get("http://localhost:8080/api/v1/collections/requests"); 
         console.log({res});
         
         setRequests(res.data);
@@ -25,7 +25,7 @@ const CollectionRequestsTable = () => {
 
   const handleCollect = async (id) => {
     try {
-      await axios.post(`/api/collection_requests/${id}/collect`);
+      await api.post(`/api/collection_requests/${id}/collect`);
       setRequests((prev) =>
         prev.map((req) =>
           req.id === id ? { ...req, status: "Collected" } : req

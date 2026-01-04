@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react'
 import logo from "../../public/icon.png";
 import { useNavigate } from 'react-router-dom';
 import { FaCoins } from 'react-icons/fa';
-import axios from 'axios';
+import { FaBars, FaTimes } from 'react-icons/fa';
+import api from '../api/axios';
 import { FaCartArrowDown } from 'react-icons/fa6';
 import CartModal from "./Navbar/CartModal";
 
@@ -11,11 +12,12 @@ const Navbar = ({ setShowModal,serviceRef }) => {
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [coin, setCoin] = useState(0);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false); // NEW STATE
+  const [isMobileOpen, setIsMobileOpen] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
     const credentials = localStorage.getItem("role");
-    if (!credentials) {
+    if (!credentials || credentials === null) {
       setRole("Guest");
     }
     if (credentials === "COLLECTOR") {
@@ -27,7 +29,7 @@ const Navbar = ({ setShowModal,serviceRef }) => {
 
     async function handlePointsFetch() {
       const user_id = localStorage.getItem("user_id");
-      const res = await axios.get(`${import.meta.env.VITE_BASE_URL}/user/Get-points?id=${user_id}`);
+      const res = await api.get(`${import.meta.env.VITE_BASE_URL}/user/Get-points?id=${user_id}`);
       const data = res.data;
       setCoin(data);
     }
@@ -46,26 +48,26 @@ const Navbar = ({ setShowModal,serviceRef }) => {
   };
 
   return (
-    <div className="navbar h-20 flex items-center bg-white relative">
-      <section className="h-full flex items-center p-3">
+    <div className="navbar h-20 flex items-center bg-white relative px-4 md:px-8 text-black">
+      <section className="h-full flex items-center gap-3">
         <img src={logo} alt="SG_Disposals Icon" className="h-full" />
         <h2 className="text-black text-start text-2xl italic font-bold p-0">
           <span className="text-green-600 font-extrabold text-3xl mx-0">SG</span> Disposals
         </h2>
       </section>
 
-      <section className="mx-[25%] items-center">
-        <ol className="text-gray-600 flex justify-between gap-4 mx-4">
-          <li onClick={() => navigate("/")}>Home</li>
-          <li onClick={handleScrollToServices}>Services</li>
-          <li onClick={() => setShowModal(true)}>Schedule</li>
-          <li onClick={() => navigate("/About-Us")}>About</li>
-          <li onClick={() => navigate("/Contact-us")}>Contact</li>
+      <section className="flex-1 flex items-center justify-center">
+        <ol className="hidden md:flex text-gray-600 justify-center gap-6">
+          <li className="cursor-pointer" onClick={() => { navigate('/'); setIsMobileOpen(false); }}>Home</li>
+          <li className="cursor-pointer" onClick={() => { handleScrollToServices(); setIsMobileOpen(false); }}>Services</li>
+          <li className="cursor-pointer" onClick={() => { setShowModal(true); setIsMobileOpen(false); }}>Schedule</li>
+          <li className="cursor-pointer" onClick={() => { navigate('/About-Us'); setIsMobileOpen(false); }}>About</li>
+          <li className="cursor-pointer" onClick={() => { navigate('/Contact-us'); setIsMobileOpen(false); }}>Contact</li>
         </ol>
       </section>
 
       <section className="items-center flex gap-2 relative">
-        {role === "Guest" ? (
+        {role === "Guest" || null ? (
           <>
             <button
               className="text-black rounded-xl h-fit w-fit p-2 text-center"
@@ -157,9 +159,43 @@ const Navbar = ({ setShowModal,serviceRef }) => {
         ) : (
           <p>Please Verify Your Role</p>
         )}
-      </section>
 
+        {/* Mobile menu toggle */}
+        <button
+          className="md:hidden ml-2 p-2 rounded text-gray-700"
+          onClick={() => setIsMobileOpen(!isMobileOpen)}
+          aria-label="Toggle menu"
+        >
+          {isMobileOpen ? <FaTimes size={20} /> : <FaBars size={20} />}
+        </button>
+      </section>
       <CartModal isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} />
+
+      {/* Mobile menu */}
+      {isMobileOpen && (
+        <div className="md:hidden absolute top-full left-0 w-full bg-white shadow-md z-40">
+          <nav className="flex flex-col p-4 gap-2">
+            <button className="text-left p-2" onClick={() => { navigate('/'); setIsMobileOpen(false); }}>Home</button>
+            <button className="text-left p-2" onClick={() => { handleScrollToServices(); setIsMobileOpen(false); }}>Services</button>
+            <button className="text-left p-2" onClick={() => { setShowModal(true); setIsMobileOpen(false); }}>Schedule</button>
+            <button className="text-left p-2" onClick={() => { navigate('/About-Us'); setIsMobileOpen(false); }}>About</button>
+            <button className="text-left p-2" onClick={() => { navigate('/Contact-us'); setIsMobileOpen(false); }}>Contact</button>
+            <div className="border-t mt-2 pt-2 flex flex-col gap-2">
+              {role === 'Guest' ? (
+                <>
+                  <button className="p-2 text-left" onClick={() => { navigate('/signup'); setIsMobileOpen(false); }}>Sign In</button>
+                  <button className="p-2 text-left" onClick={() => { navigate('/login'); setIsMobileOpen(false); }}>Log In</button>
+                </>
+              ) : (
+                <>
+                  <button className="p-2 text-left" onClick={() => { navigate('/orders'); setIsMobileOpen(false); }}>Your Orders</button>
+                  <button className="p-2 text-left text-red-600" onClick={() => { handleLogout(); setIsMobileOpen(false); }}>Log Out</button>
+                </>
+              )}
+            </div>
+          </nav>
+        </div>
+      )}
     </div>
   );
 };

@@ -2,12 +2,14 @@ import React, { useRef } from 'react';
 import loginbanner from "../../../public/signup_banner.png";
 import { BsTwitterX, BsFacebook } from "react-icons/bs";
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const SignUp = () => {
   let emailRef = useRef(null);
   let usernameRef = useRef(null);
   let passwordRef = useRef(null);
   let transactionPasswordRef = useRef(null);
+  const naviagte =useNavigate();
 
   async function handleSignUp() {
     // signup logic here
@@ -15,14 +17,15 @@ const SignUp = () => {
     const email = emailRef.current.value;
     const password = passwordRef.current.value;
     const name = usernameRef.current.value;
-    const Transactional_password = transactionPasswordRef.current.value;
+    const transactionalPassword = transactionPasswordRef.current.value;
 
-    const res = await axios.post(`${import.meta.env.VITE_BASE_URL}/user/add-user`,{email,password,name,Transactional_password});
+    const res = await axios.post(`${import.meta.env.VITE_BASE_URL}/user/add-user`,{email,password,name,transactionalPassword});
     const data = res.data;
     console.log({res});
 
     if (res.status == 200){
       localStorage.setItem("user_id",data.id);
+      naviagte("/login")
     }
     alert(data.message);
   }

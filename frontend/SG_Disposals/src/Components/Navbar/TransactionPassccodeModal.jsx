@@ -1,4 +1,4 @@
-import axios from "axios";
+import api from '../../api/axios';
 import React, { useState } from "react";
 
 const TransactionPasscodeModal = ({ isOpen, onClose }) => {
@@ -17,11 +17,11 @@ const TransactionPasscodeModal = ({ isOpen, onClose }) => {
         
         cart.map(async (item) => {
           const product_id = item.id;
-          const Transactional_password = passcode;
-          console.log("Your Password for this Transaction is : ",Transactional_password);
+          const transactionalPassword = passcode;
+          console.log("Your Password for this Transaction is : ",transactionalPassword);
           
           const quantity = item.quantity;
-          const res = await axios.post(`${import.meta.env.VITE_BASE_URL}/product/buy`,{user_id,product_id,Transactional_password,quantity});
+          const res = await api.post(`${import.meta.env.VITE_BASE_URL}/product/buy`,{user_id,product_id,transactionalPassword,quantity});
 
           const data = res.data;
           console.log(`Data for ${item.id} is : `,data);
