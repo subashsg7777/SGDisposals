@@ -45,7 +45,7 @@ const res = await axios.post(
 }
 
   return (
-    <div className="min-h-screen fixed inset-0 flex items-center justify-center bg-gray-100">
+    <div className="min-h-screen flex items-center justify-center bg-gray-100">
       <div className="max-w-4xl w-full bg-white shadow-md rounded-lg overflow-hidden flex flex-col md:flex-row">
         {/* Left Image Section */}
         <div className="md:w-1/2 bg-blue-50 flex items-center justify-center p-6">
