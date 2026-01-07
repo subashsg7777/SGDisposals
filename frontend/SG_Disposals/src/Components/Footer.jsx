@@ -6,7 +6,7 @@ import { FaCcAmex, FaCcDiscover, FaXTwitter } from "react-icons/fa6";
 const Footer = () => {
   return (
     <footer className="bg-gray-200 text-gray-700 pt-12 pb-6 px-6 md:px-16">
-      <div className="max-w-screen-xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-8 ">
+      <div className="max-w-screen-xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-8">
         {/* Logo + Store Locations */}
         <div>
         <span className="flex items-center text-center gap-5">
@@ -62,7 +62,7 @@ const Footer = () => {
       </div>
 
       {/* Bottom Bar */}
-      <div className="mt-10 border-t pt-6 flex flex-col md:flex-row justify-between items-center text-sm text-gray-600">
+      <div className="mt-10 border-t pt-6 flex flex-col md:flex-row justify-between items-center text-sm text-gray-600 max-sm:px-3]">
         <p>© 2026 SG Disposals . All Rights Reserved.</p>
         <div className="flex items-center space-x-4 mt-4 md:mt-0">
           {/* Payment Icons */}

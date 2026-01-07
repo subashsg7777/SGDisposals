@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import logo from "../../public/icon.png";
 import { useNavigate } from 'react-router-dom';
-import { FaCoins } from 'react-icons/fa';
+import { FaCoins, FaList } from 'react-icons/fa';
 import { FaBars, FaTimes } from 'react-icons/fa';
 import api from '../api/axios';
-import { FaCartArrowDown } from 'react-icons/fa6';
+import { FaCartArrowDown, FaClipboard, FaClipboardCheck, FaNoteSticky } from 'react-icons/fa6';
 import CartModal from "./Navbar/CartModal";
 
 const Navbar = ({ setShowModal,serviceRef }) => {
@@ -85,13 +85,17 @@ const Navbar = ({ setShowModal,serviceRef }) => {
         ) : role === "COLLECTOR" ? (
           <>
             <button
-              className="bg-green-500 text-white font-bold italic rounded-xl h-fit w-fit p-2 px-6 text-center"
+              className="bg-green-500 text-white font-bold italic rounded-xl h-fit w-fit p-2 px-6 text-center max-sm:hidden"
               onClick={() => navigate("/request")}
             >
               See Requests
             </button>
 
-             <div className="relative ml-16 text-black">
+            <button className='bg-green-500 rounded-2xl text-white p-2 sm:hidden'>
+                <FaClipboardCheck size={24}/>
+            </button>
+
+             <div className="relative ml-16 text-black max-sm:hidden">
               <img
                 src="https://static.vecteezy.com/system/resources/previews/036/280/651/original/default-avatar-profile-icon-social-media-user-image-gray-avatar-icon-blank-profile-silhouette-illustration-vector.jpg"
                 className="h-12 w-12 rounded-full cursor-pointer"
@@ -112,7 +116,7 @@ const Navbar = ({ setShowModal,serviceRef }) => {
         ) : role === "USER" ? (
           <>
             <div
-              className="bg-green-300 text-green-800 italic flex py-3 px-5 rounded-3xl items-center text-nowrap cursor-pointer"
+              className="bg-green-300 text-green-800 italic min-[448px]:flex py-3 px-5 rounded-3xl items-center text-nowrap cursor-pointer hidden"
               onClick={() => setIsCartOpen(true)}
             >
               <FaCartArrowDown size={24} /> View cart
@@ -123,7 +127,7 @@ const Navbar = ({ setShowModal,serviceRef }) => {
             </div>
 
             {/* Avatar with dropdown */}
-            <div className="relative text-black">
+            <div className="relative text-black hidden sm:block">
               <img
                 src="https://static.vecteezy.com/system/resources/previews/036/280/651/original/default-avatar-profile-icon-social-media-user-image-gray-avatar-icon-blank-profile-silhouette-illustration-vector.jpg"
                 className="h-12 w-12 rounded-full cursor-pointer"

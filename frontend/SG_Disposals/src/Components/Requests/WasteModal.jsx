@@ -12,7 +12,7 @@ const {user} = useContext(UserContext);
     if (isOpen) {
       const fetchWasteTypes = async () => {
         try {
-          const res = await api.get("http://localhost:8080/api/v1/collections/waste-lists");
+          const res = await api.get(`${import.meta.env.VITE_BASE_URL}/collections/waste-lists`);
           setWasteTypes(res.data); // array of {id, points, type}
           // initialize refs
           const refsObj = {};
@@ -43,7 +43,7 @@ const {user} = useContext(UserContext);
     const collection_id = request.id;
     const user_id = request.user_id;
 
-    const res = await api.put("http://localhost:8080/api/v1/collector/collect",{collection_id,collector_id,user_id,weights});
+    const res = await api.put(`${import.meta.env.VITE_BASE_URL}/collector/collect`,{collection_id,collector_id,user_id,weights});
 
     if (res.status == 200){
         alert(res.data.message || "Collected");
