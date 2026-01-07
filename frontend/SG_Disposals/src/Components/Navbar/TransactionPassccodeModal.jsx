@@ -24,8 +24,9 @@ const TransactionPasscodeModal = ({ isOpen, onClose }) => {
           const res = await api.post(`${import.meta.env.VITE_BASE_URL}/product/buy`,{user_id,product_id,transactionalPassword,quantity});
 
           const data = res.data;
-          console.log(`Data for ${item.id} is : `,data);
+          console.log(`Data for ${item.id} is : `,res.status);
           
+          alert(data.message);
         });
 
 
