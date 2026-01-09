@@ -9,6 +9,10 @@ import SignUp from './Components/Login/SignUp';
 import CollectionRequestsTable from './Components/Requests/AllRequests';
 import ContactUs from './Components/ContactUs';
 import AboutUs from './Components/AboutUs';
+import Navbar from './Components/Navbar';
+import Orders from './Components/Navbar/Orders';
+import Footer from './Components/Footer';
+import UserProfileCard from './Components/Navbar/UserProfileCard';
 
 function App() {
 
@@ -21,6 +25,8 @@ function App() {
           <Route path='/request' element={<CollectionRequestsTable />}/>
           <Route path='/Contact-us' element={<ContactUs />} />
           <Route path='/About-Us' element={<AboutUs />} />
+          <Route path='/Orders' element={<><Navbar /> <Orders /> <Footer /></>} />
+          <Route path='/profile' element={<> <UserProfileCard /></>} />
         </Routes>
         </div>
   );

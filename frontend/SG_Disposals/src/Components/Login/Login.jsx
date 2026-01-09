@@ -26,6 +26,8 @@ const res = await axios.post(
 
     console.log("User ID:", data.id);
 
+    console.log({res});
+    
     if (res.status === 200) {
       // persist in localStorage
       localStorage.setItem("user_id", data.id);

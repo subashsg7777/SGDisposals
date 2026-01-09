@@ -140,13 +140,13 @@ const Navbar = ({ setShowModal,serviceRef }) => {
                   </button>
                   <button
                     className="block w-full text-left px-4 py-2 hover:bg-gray-100"
-                    onClick={() => navigate("/settings")}
+                    onClick={() => navigate("/profile")}
                   >
                     Settings
                   </button>
                   <button
                     className="block w-full text-left px-4 py-2 hover:bg-gray-100"
-                    onClick={() => navigate("/orders")}
+                    onClick={() => navigate("/Orders")}
                   >
                     Your Orders
                   </button>

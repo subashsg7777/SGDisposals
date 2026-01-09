@@ -7,18 +7,16 @@ const FeaturedProducts = () => {
   // Track quantity per product (default 1)
   const [quantities, setQuantities] = useState({});
 
-  // Handle quantity change
   const handleQuantityChange = (index, delta) => {
     setQuantities(prev => {
       const newQty = (prev[index] || 1) + delta;
       return {
         ...prev,
-        [index]: newQty < 1 ? 1 : newQty, // prevent going below 1
+        [index]: newQty < 1 ? 1 : newQty, 
       };
     });
   };
 
-  // Add to cart with quantity
   const handleAddToCart = (product, index) => {
     const existingCart = JSON.parse(localStorage.getItem("cart")) || [];
     const quantity = quantities[index] || 1;
@@ -62,7 +60,6 @@ const FeaturedProducts = () => {
               <span className="text-green-600 font-bold flex">
                 <FaCoins size={30} className='text-amber-300'/> {product.points} points
               </span>
-              {/* Quantity Controls */}
             <div className="flex items-center gap-2 mb-4 text-black">
               <button 
                 className="px-3 py-1 border border-green-500 bg-white rounded" 
