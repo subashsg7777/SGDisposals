@@ -27,6 +27,10 @@ const TransactionPasscodeModal = ({ isOpen, onClose }) => {
           console.log(`Data for ${item.id} is : `,res.status);
           
           alert(data.message);
+
+          if(res.status === 200){
+            localStorage.removeItem("cart");
+          }
         });
 
 
