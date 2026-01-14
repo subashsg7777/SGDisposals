@@ -3,6 +3,7 @@ import loginbanner from "../../../public/signup_banner.png";
 import { BsTwitterX, BsFacebook } from "react-icons/bs";
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 const SignUp = () => {
   let emailRef = useRef(null);
@@ -12,7 +13,6 @@ const SignUp = () => {
   const naviagte =useNavigate();
 
   async function handleSignUp() {
-    // signup logic here
 
     const email = emailRef.current.value;
     const password = passwordRef.current.value;
@@ -26,8 +26,10 @@ const SignUp = () => {
     if (res.status == 200){
       localStorage.setItem("user_id",data.id);
       naviagte("/login")
+      toast.success(data.message);
+      return;
     }
-    alert(data.message);
+    toast.error(data.message);
   }
 
   return (

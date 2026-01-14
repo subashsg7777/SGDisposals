@@ -13,6 +13,7 @@ import Navbar from './Components/Navbar';
 import Orders from './Components/Navbar/Orders';
 import Footer from './Components/Footer';
 import UserProfileCard from './Components/Navbar/UserProfileCard';
+import AllProducts from './Components/AllProducts';
 
 function App() {
 
@@ -27,6 +28,7 @@ function App() {
           <Route path='/About-Us' element={<AboutUs />} />
           <Route path='/Orders' element={<><Navbar /> <Orders /> <Footer /></>} />
           <Route path='/profile' element={<> <UserProfileCard /></>} />
+          <Route path='/products' element={<AllProducts />} />
         </Routes>
         </div>
   );

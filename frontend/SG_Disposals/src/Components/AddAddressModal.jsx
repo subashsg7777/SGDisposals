@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useRef } from 'react';
 import { FaMapMarkerAlt, FaBuilding, FaHashtag, FaTimes } from 'react-icons/fa';
 import { UserContext } from '../store/UserStore.jsx';
 import api from '../api/axios';
+import { toast } from 'react-toastify';
 
 const AddAddressModal = ({ isOpen, onClose }) => {
   const { user } = useContext(UserContext);
@@ -11,7 +12,6 @@ const AddAddressModal = ({ isOpen, onClose }) => {
   const add2Ref = useRef(null);
   const pincodeRef = useRef(null);
 
-  // ✅ Hydrate inputs when modal opens
   useEffect(() => {
     if (isOpen) {
       const address = localStorage.getItem("address");
@@ -24,7 +24,6 @@ const AddAddressModal = ({ isOpen, onClose }) => {
         if (pincodeRef.current) pincodeRef.current.value = lines[2]?.trim() || "";
       }
     } else {
-      // ✅ Clear inputs when modal closes
       if (add1Ref.current) add1Ref.current.value = "";
       if (add2Ref.current) add2Ref.current.value = "";
       if (pincodeRef.current) pincodeRef.current.value = "";
@@ -48,13 +47,11 @@ const AddAddressModal = ({ isOpen, onClose }) => {
       const data = res.data;
       console.log(data);
 
-      alert(data.message);
-
-      // ✅ Save to localStorage
+      toast.success(data.message);
       localStorage.setItem("address", address);
     } catch (err) {
       console.error("Error adding address:", err);
-      alert("Failed to add address. Please try again.");
+      toast.error("Failed to add address. Please try again.");
     }
   }
 

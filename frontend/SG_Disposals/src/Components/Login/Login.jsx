@@ -3,7 +3,7 @@ import loginbanner from "../../../public/login_banner.png"
 import axios from 'axios';
 import { UserContext } from '../../store/UserStore.jsx';
 import { useNavigate } from 'react-router-dom';
-
+import { toast } from 'react-toastify';
 
 const Login = () => {
 
@@ -37,12 +37,12 @@ const res = await axios.post(
       // update context
       login({ user_id: data.id });
 
-      alert(data.message);
+      toast.success(data.message);
     naviagte("/")
     }
   } catch (err) {
     console.error("Login failed:", err);
-    alert("Login failed. Please try again.");
+    toast.error("Login failed. Please try again.");
   }
 }
 

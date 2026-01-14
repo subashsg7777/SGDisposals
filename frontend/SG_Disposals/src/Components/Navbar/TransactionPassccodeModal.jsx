@@ -1,3 +1,4 @@
+import { toast } from 'react-toastify';
 import api from '../../api/axios';
 import React, { useState } from "react";
 
@@ -26,10 +27,14 @@ const TransactionPasscodeModal = ({ isOpen, onClose }) => {
           const data = res.data;
           console.log(`Data for ${item.id} is : `,res.status);
           
-          alert(data.message);
-
+          
           if(res.status === 200){
+            toast.success(data.message);
             localStorage.removeItem("cart");
+          }
+
+          else{
+            toast.error("Can't Place the order right now !...")
           }
         });
 
