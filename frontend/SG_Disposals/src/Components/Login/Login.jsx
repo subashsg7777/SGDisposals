@@ -1,6 +1,7 @@
 import React, { useContext, useRef } from 'react';
 import loginbanner from "../../../public/login_banner.png"
 import axios from 'axios';
+import api from '../../api/axios.js';
 import { UserContext } from '../../store/UserStore.jsx';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
@@ -17,7 +18,7 @@ async function handleLogin() {
   const password = passwordRef.current.value;
 
   try {
-const res = await axios.post(
+const res = await api.post(
   `${import.meta.env.VITE_BASE_URL}/user/login`,
   { email, password }
 );
