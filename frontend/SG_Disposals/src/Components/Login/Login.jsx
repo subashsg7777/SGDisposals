@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
 const Login = () => {
-
+ 
     let emailRef = useRef(null);
     let passwordRef = useRef(null);
     const {login} = useContext(UserContext);
@@ -18,7 +18,7 @@ async function handleLogin() {
   const password = passwordRef.current.value;
 
   try {
-const res = await api.post(
+const res = await axios.post(
   `${import.meta.env.VITE_BASE_URL}/user/login`,
   { email, password }
 );
