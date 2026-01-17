@@ -1,35 +1,41 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import loginbanner from "../../../public/signup_banner.png";
 import { BsTwitterX, BsFacebook } from "react-icons/bs";
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import ConfirmEmail from './ConfirmEmail';
+import api from "../../api/axios";
 
 const SignUp = () => {
   let emailRef = useRef(null);
   let usernameRef = useRef(null);
   let passwordRef = useRef(null);
   let transactionPasswordRef = useRef(null);
+  const [confirm,setConfirm] = useState(false);
   const naviagte =useNavigate();
+const [email,setEmail] = useState(null);
+const [password,setPasscode] = useState(null);
+const [name,setName] = useState(null);
+const [transactionalPassword,setTransactionalPassword] = useState(null);
 
   async function handleSignUp() {
 
-    const email = emailRef.current.value;
-    const password = passwordRef.current.value;
-    const name = usernameRef.current.value;
-    const transactionalPassword = transactionPasswordRef.current.value;
+     setEmail(emailRef.current.value);
+     setPasscode(passwordRef.current.value);
+     setName(usernameRef.current.value);
+     setTransactionalPassword(transactionPasswordRef.current.value);
 
-    const res = await axios.post(`${import.meta.env.VITE_BASE_URL}/user/add-user`,{email,password,name,transactionalPassword});
-    const data = res.data;
-    console.log({res});
+    const res = await api.get(`${import.meta.env.VITE_BASE_URL}/user/verify-email?email=${emailRef.current.value}`);
+    if(res.status == 200){
 
-    if (res.status == 200){
-      localStorage.setItem("user_id",data.id);
-      naviagte("/login")
-      toast.success(data.message);
-      return;
+      setConfirm(true);
+      console.log("Changed Boolean");
     }
-    toast.error(data.message);
+    
+    else{
+      toast.error("Can't get You to Email Verification Right Now Please Try Again !..")
+    }
   }
 
   return (
@@ -108,6 +114,7 @@ const SignUp = () => {
               SIGN UP
             </button>
 
+            <p className='text-sm text-gray-500 text-center'>Already Have an Account ? <a className='no-underline text-sm text-green-500' onClick={() => naviagte("/login")}>Login</a></p>
             <div className="text-center text-gray-500 text-sm">OR</div>
 
             <div className="flex flex-col space-y-3">
@@ -121,6 +128,9 @@ const SignUp = () => {
           </form>
         </div>
       </div>
+      {confirm && (
+        <ConfirmEmail confirm = {confirm} name={name} email={email} password={password} transactionalPassword={transactionalPassword} onClose={() => setConfirm(false)}/>
+      )}
     </div>
   );
 };
