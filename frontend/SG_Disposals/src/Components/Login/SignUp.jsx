@@ -101,7 +101,7 @@ const [transactionalPassword,setTransactionalPassword] = useState(null);
                 <input type="checkbox" className="mr-2" />
                 Remember me
               </label>
-              <a href="#" className="text-sm text-blue-600 hover:underline">
+              <a className="text-sm text-blue-600 hover:underline" onClick={() => setConfirm(true)}>
                 Forgot password?
               </a>
             </div>

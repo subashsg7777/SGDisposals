@@ -14,6 +14,7 @@ import Orders from './Components/Navbar/Orders';
 import Footer from './Components/Footer';
 import UserProfileCard from './Components/Navbar/UserProfileCard';
 import AllProducts from './Components/AllProducts';
+import Change_password from './Components/Login/Change_password';
 
 function App() {
 

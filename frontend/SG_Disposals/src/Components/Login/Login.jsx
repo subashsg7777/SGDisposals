@@ -1,10 +1,11 @@
-import React, { useContext, useRef } from 'react';
+import React, { useContext, useRef, useState } from 'react';
 import loginbanner from "../../../public/login_banner.png"
 import axios from 'axios';
 import api from '../../api/axios.js';
 import { UserContext } from '../../store/UserStore.jsx';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import ForgotOtp from './ForgotOtp.jsx';
 
 const Login = () => {
  
@@ -12,6 +13,9 @@ const Login = () => {
     let passwordRef = useRef(null);
     const {login} = useContext(UserContext);
     const naviagte = useNavigate();
+    const[forgot,setForgot] = useState(false);
+      const [email,setEmail] = useState("");
+      const [password,setpassword] = useState("");
 
 async function handleLogin() {
   const email = emailRef.current.value;
@@ -87,7 +91,11 @@ const res = await axios.post(
                 <input type="checkbox" className="mr-2" />
                 Remember me
               </label>
-              <a href="#" className="text-sm text-blue-600 hover:underline">
+              <a className="text-sm text-blue-600 hover:underline" onClick={()=> {
+                setEmail(emailRef.current.value)
+                setpassword(passwordRef.current.value)
+                setForgot(true)
+              }}>
                 Forgot password?
               </a>
             </div>
@@ -110,6 +118,9 @@ const res = await axios.post(
           </form>
         </div>
       </div>
+      {forgot && (
+        <ForgotOtp confirm = {forgot} email={email} password={password}  onClose={() => setForgot(false)}/>
+      )}
     </div>
   );
 };
